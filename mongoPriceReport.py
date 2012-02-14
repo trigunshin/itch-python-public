@@ -67,8 +67,8 @@ class ReportGenerator(object):
         self.storeName = store
         self.startDate = start
         self.endDate = end
-        self.dbName = 'testCards'
-        self.collName = 'priceCollection'
+        self.dbName = 'db'
+        self.collName = 'collection'
         if not filter:
             self.reportFilter = self.priceChange
         else:
@@ -172,7 +172,7 @@ if __name__ == '__main__':
 
     c=Connection()
     db=c[gen.dbName]
-    diffCollection=db["priceReports"]
+    diffCollection=db["rcollection"]
 
     if outputLocation is None:
         for result in diffs:

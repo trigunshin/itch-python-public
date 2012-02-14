@@ -71,7 +71,7 @@ def getSortKey(obj):
 def getReport(a,b):
 #    print a['name'],b['name']
     if a['name']!=b['name']:
-        print "BRICKSHIT",a['name'],b['name']
+        print "Error case",a['name'],b['name']
     report = PriceReport(a,b)
     if report.priceChange == 0:
         return None
@@ -83,7 +83,7 @@ if __name__ == '__main__':
     delimiter = "\t"
     fileSuffix = ".tsv"
     fileName = None
-    fullFileDirectory = "/Users/trigunshin/mtgPrice/scg/"
+    fullFileDirectory = "/Users/<user>/mtgPrice/scg/"
     storeName = "StarCity Games"
     #datestring = date.today().isoformat()
 
@@ -124,8 +124,8 @@ if __name__ == '__main__':
     print "Reading from:",fileToUse
 
     c = Connection()
-    db = c['testCards']
-    coll = db['priceCollection']
+    db = c['db']
+    coll = db['collection']
 
     imp = scgImports(datestring, storeName, delimiter)
     

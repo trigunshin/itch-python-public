@@ -32,20 +32,20 @@ class Preferences(object):
 
     def getUserArray(self):
         #TODO query mongodb for users
-        usr1={self.userEmail:"t@g.c",self.prefs:{self.stores:{self.vals:[self.scg]},
-                                        self.formats:{self.vals:['txt']}}}
-        usr2={self.userEmail:"g@g.c",self.prefs:{self.stores:{self.vals:[self.mtgtrdr]},
-                                        self.formats:{self.vals:['csv']}}}
-        usr3={self.userEmail:"x@g.c",self.prefs:{self.stores:{self.vals:[self.scg,self.mtgtrdr]},
-                                        self.formats:{self.vals:['csv','txt']}}}
-        usr4={self.userEmail:"y@g.c",self.prefs:{self.stores:{self.vals:[self.scg,self.mtgtrdr]},
-                                        self.formats:{self.vals:['csv']}}}
-        usr5={self.userEmail:"a@g.c",self.prefs:{self.stores:{self.vals:[self.scg]},
-                                        self.formats:{self.vals:['txt']}}}
+        #usr1={self.userEmail:"t@g.c",self.prefs:{self.stores:{self.vals:[self.scg]},
+        #                                self.formats:{self.vals:['txt']}}}
+        #usr2={self.userEmail:"g@g.c",self.prefs:{self.stores:{self.vals:[self.mtgtrdr]},
+        #                                self.formats:{self.vals:['csv']}}}
+        #usr3={self.userEmail:"x@g.c",self.prefs:{self.stores:{self.vals:[self.scg,self.mtgtrdr]},
+        #                                self.formats:{self.vals:['csv','txt']}}}
+        #usr4={self.userEmail:"y@g.c",self.prefs:{self.stores:{self.vals:[self.scg,self.mtgtrdr]},
+        #                                self.formats:{self.vals:['csv']}}}
+        #usr5={self.userEmail:"a@g.c",self.prefs:{self.stores:{self.vals:[self.scg]},
+        #                                self.formats:{self.vals:['txt']}}}
         #return [usr1,usr2,usr3,usr4,usr5]
         c = Connection()
-        db = c['emailList']
-        coll = db['emails']
+        db = c['db']
+        coll = db['collection']
         ret=[]
         for cur in coll.find({'email':{'$exists':'true'}, 
                             'prefs.'+self.formats+'.values':{'$not':{'$size':0}},
@@ -132,7 +132,7 @@ if __name__ == '__main__':
     #    print "To:",emailMap[key][p.emailArray]
     #    print "\tFiles:",emailMap[key][p.attachments]
     
-    parser = argparse.ArgumentParser(description='Herpaderp.')
+    parser = argparse.ArgumentParser(description='Database-backed emailer.')
     parser.add_argument('-d', required=True, help="Directory to find files in.")
     args = vars(parser.parse_args())
     if args['d'] != None:
@@ -142,8 +142,8 @@ if __name__ == '__main__':
     gmail_pwd = "your_password"
 
     c = Connection()
-    db = c['emailList']
-    coll = db['emails']
+    db = c['db']
+    coll = db['collection']
     for cur in coll.find({'sender':{'$exists':'true'}}).limit(1):
         print "Sending via",cur['sender']
         gmail_user = cur['sender']
