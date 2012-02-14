@@ -1,0 +1,8 @@
+Python report generation and db upload scripts. Part of how I started learning python; there isn't a whole lot of OO, but the basic coding style, flow and naming conventions are there.
+I don't have a nicer codebase as my Java projects were proprietary and I'd like to rewrite my Javascript code with closures and some other things to clean it up before I expose it at some point.
+The database information has been changed to some generic stuff.
+
+This part of the project is intended to run a scraper to fetch data into a file, upload it to the database and then generate reports to email out.
+At the moment there's a bit of "notice errors if the nightly email doesn't go out" as opposed to complete error checking.
+
+I haven't looked at the scraper in a long time, but recently redid the emailer to send emails based off of database preferences.
